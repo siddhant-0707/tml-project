@@ -503,11 +503,10 @@ if __name__ == "__main__":
     defense_enabled = True  # Set to True to use defense
     if defense_enabled:
         # Use defended prediction function
-        # Parameters can be tuned: temperature (MIA defense), num_samples and noise_scale (adversarial defense)
         predict_fn = lambda x, dev: defended_predict(model, x, device=dev, 
-                                                      temperature=2.0, 
+                                                      temperature=3.5, 
                                                       num_samples=4, 
-                                                      noise_scale=0.02)
+                                                      noise_scale=0.03)
     else:
         # predict_fn points to undefended model
         predict_fn = lambda x, dev: basic_predict(model, x, device=dev)

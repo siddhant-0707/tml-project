@@ -1,0 +1,179 @@
+{
+  "temperature": [
+    {
+      "temperature": 1.0,
+      "val_acc": 0.8646,
+      "mia_advantage": 0.1884765625,
+      "benign_acc": 0.91,
+      "adv_acc": 0.5325,
+      "entropy_mia_adv": 0.1953125,
+      "loss_mia_adv": -0.181640625
+    },
+    {
+      "temperature": 1.5,
+      "val_acc": 0.8666,
+      "mia_advantage": 0.1689453125,
+      "benign_acc": 0.925,
+      "adv_acc": 0.4125,
+      "entropy_mia_adv": 0.19140625,
+      "loss_mia_adv": -0.146484375
+    },
+    {
+      "temperature": 2.0,
+      "val_acc": 0.8636,
+      "mia_advantage": 0.1845703125,
+      "benign_acc": 0.9175,
+      "adv_acc": 0.68,
+      "entropy_mia_adv": 0.20703125,
+      "loss_mia_adv": -0.162109375
+    },
+    {
+      "temperature": 2.5,
+      "val_acc": 0.8638,
+      "mia_advantage": 0.1767578125,
+      "benign_acc": 0.9225,
+      "adv_acc": 0.53,
+      "entropy_mia_adv": 0.19140625,
+      "loss_mia_adv": -0.162109375
+    },
+    {
+      "temperature": 3.0,
+      "val_acc": 0.867,
+      "mia_advantage": 0.1552734375,
+      "benign_acc": 0.9175,
+      "adv_acc": 0.5475,
+      "entropy_mia_adv": 0.19921875,
+      "loss_mia_adv": -0.111328125
+    },
+    {
+      "temperature": 3.5,
+      "val_acc": 0.8636,
+      "mia_advantage": 0.1474609375,
+      "benign_acc": 0.91,
+      "adv_acc": 0.6975,
+      "entropy_mia_adv": 0.1796875,
+      "loss_mia_adv": -0.115234375
+    },
+    {
+      "temperature": 4.0,
+      "val_acc": 0.8662,
+      "mia_advantage": 0.1240234375,
+      "benign_acc": 0.9175,
+      "adv_acc": 0.5275,
+      "entropy_mia_adv": 0.18359375,
+      "loss_mia_adv": -0.064453125
+    }
+  ],
+  "num_samples": [
+    {
+      "num_samples": 1,
+      "val_acc": 0.8492,
+      "mia_advantage": 0.1611328125,
+      "benign_acc": 0.9025,
+      "adv_acc": 0.295,
+      "entropy_mia_adv": 0.1953125,
+      "loss_mia_adv": -0.126953125
+    },
+    {
+      "num_samples": 2,
+      "val_acc": 0.867,
+      "mia_advantage": 0.1865234375,
+      "benign_acc": 0.9075,
+      "adv_acc": 0.6275,
+      "entropy_mia_adv": 0.19140625,
+      "loss_mia_adv": -0.181640625
+    },
+    {
+      "num_samples": 4,
+      "val_acc": 0.8654,
+      "mia_advantage": 0.1767578125,
+      "benign_acc": 0.9175,
+      "adv_acc": 0.7125,
+      "entropy_mia_adv": 0.1875,
+      "loss_mia_adv": -0.166015625
+    },
+    {
+      "num_samples": 6,
+      "val_acc": 0.8666,
+      "mia_advantage": 0.1650390625,
+      "benign_acc": 0.92,
+      "adv_acc": 0.6425,
+      "entropy_mia_adv": 0.19921875,
+      "loss_mia_adv": -0.130859375
+    },
+    {
+      "num_samples": 8,
+      "val_acc": 0.8668,
+      "mia_advantage": 0.1787109375,
+      "benign_acc": 0.92,
+      "adv_acc": 0.6975,
+      "entropy_mia_adv": 0.1953125,
+      "loss_mia_adv": -0.162109375
+    },
+    {
+      "num_samples": 10,
+      "val_acc": 0.8684,
+      "mia_advantage": 0.1787109375,
+      "benign_acc": 0.9125,
+      "adv_acc": 0.6575,
+      "entropy_mia_adv": 0.19140625,
+      "loss_mia_adv": -0.166015625
+    }
+  ],
+  "noise_scale": [
+    {
+      "noise_scale": 0.0,
+      "val_acc": 0.8646,
+      "mia_advantage": 0.1767578125,
+      "benign_acc": 0.9125,
+      "adv_acc": 0.6425,
+      "entropy_mia_adv": 0.19921875,
+      "loss_mia_adv": -0.154296875
+    },
+    {
+      "noise_scale": 0.01,
+      "val_acc": 0.8654,
+      "mia_advantage": 0.1787109375,
+      "benign_acc": 0.9225,
+      "adv_acc": 0.4225,
+      "entropy_mia_adv": 0.19140625,
+      "loss_mia_adv": -0.166015625
+    },
+    {
+      "noise_scale": 0.02,
+      "val_acc": 0.8656,
+      "mia_advantage": 0.1728515625,
+      "benign_acc": 0.91,
+      "adv_acc": 0.5475,
+      "entropy_mia_adv": 0.1953125,
+      "loss_mia_adv": -0.150390625
+    },
+    {
+      "noise_scale": 0.03,
+      "val_acc": 0.8676,
+      "mia_advantage": 0.1669921875,
+      "benign_acc": 0.92,
+      "adv_acc": 0.6575,
+      "entropy_mia_adv": 0.19140625,
+      "loss_mia_adv": -0.142578125
+    },
+    {
+      "noise_scale": 0.04,
+      "val_acc": 0.8622,
+      "mia_advantage": 0.1591796875,
+      "benign_acc": 0.9225,
+      "adv_acc": 0.645,
+      "entropy_mia_adv": 0.171875,
+      "loss_mia_adv": -0.146484375
+    },
+    {
+      "noise_scale": 0.05,
+      "val_acc": 0.864,
+      "mia_advantage": 0.1630859375,
+      "benign_acc": 0.9075,
+      "adv_acc": 0.73,
+      "entropy_mia_adv": 0.16796875,
+      "loss_mia_adv": -0.158203125
+    }
+  ]
+}

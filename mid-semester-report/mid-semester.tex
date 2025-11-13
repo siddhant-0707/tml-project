@@ -7,6 +7,8 @@
 \usepackage{breakurl}
 \usepackage{booktabs}  % For better table formatting
 \usepackage{amssymb}  % For checkmark symbol
+\usepackage{graphicx}  % For including images
+\usepackage{float}  % For H placement option
 
 \hypersetup{
     colorlinks,
@@ -24,17 +26,17 @@
 %% TODO: your name and email go here (all members of the group --- add/remove names based on the size of the group)
 %% Comment out as needed and designate a point of contact
 \author{
-        Siddhant Chauhan \\{\em (Point of Contact)} \\
-        siddhant.chauhan@ufl.edu\\
+        Siddhant Chauhan {\em (Point of Contact)}\\
+        \texttt{siddhant.chauhan@ufl.edu}\\
         \and
-        Samarth Vinayaka \\
-        email2@ufl.edu\\
+        Samarth Vinayaka\\
+        \texttt{samarthvinayaka@ufl.edu}\\
         \and
-        Pulkit Garg \\
-        email3@ufl.edu\\
+        Pulkit Garg\\
+        \texttt{pulkit.garg@ufl.edu}\\
         \and
-        Shreyansh Nayak \\
-        email3@ufl.edu\\
+        Shreyansh Nayak\\
+        \texttt{nayak.sh@ufl.edu}\\
 }
 
 % set the date to today
@@ -316,6 +318,13 @@ BIM & 90.00\% & 52.34\% & -37.66\% \\
     \item \textbf{Attack0 Performance:} The provided Attack0 is the weakest against our defense (71.25\% accuracy), suggesting it may be a simpler attack or one that our defense is particularly effective against.
 \end{itemize}
 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth,keepaspectratio]{../examples/screenshots/part1-ss.png}
+\caption{Complete evaluation output showing MIA attack results and adversarial attack results for the defended model.}
+\label{fig:part1-results}
+\end{figure}
+
 \subsection{Analysis}
 
 The defense demonstrates strong effectiveness across multiple attack vectors:
@@ -366,6 +375,13 @@ After initial implementation, we conducted systematic parameter tuning to optimi
     \item \textbf{Num\_samples:} 1 to 10 (key values: 2, 4, 6, 8, 10)
     \item \textbf{Noise\_scale:} 0.0 to 0.05 (key values: 0.01, 0.02, 0.03, 0.04, 0.05)
 \end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth,keepaspectratio]{../examples/screenshots/tuning-ss.png}
+\caption{Parameter impact analysis showing the effect of temperature, num\_samples, and noise\_scale on validation accuracy, MIA advantage, and adversarial accuracy.}
+\label{fig:tuning-results}
+\end{figure}
 
 \textbf{Key Findings from Parameter Analysis:}
 

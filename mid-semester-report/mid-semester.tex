@@ -21,7 +21,7 @@
 
 
 \title{CIS 6261: Trustworthy Machine Learning\\
-	\Large Mid-Semester Project Report \textcolor{magenta}{[Option 1]: Defense Against Adversarial Examples and Membership Inference Attacks}}
+	\Large Mid-Semester Project Report \\ \textcolor{magenta}{A Unified Inference-Time Defense for Adversarial Robustness and Privacy Protection}}
 
 %% TODO: your name and email go here (all members of the group --- add/remove names based on the size of the group)
 %% Comment out as needed and designate a point of contact
@@ -379,7 +379,7 @@ After initial implementation, we conducted systematic parameter tuning to optimi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth,keepaspectratio]{../examples/screenshots/tuning-ss.png}
-\caption{Parameter impact analysis showing the effect of temperature, num\_samples, and noise\_scale on validation accuracy, MIA advantage, and adversarial accuracy.}
+\caption{Parameter impact analysis showing the effect of temperature, num\_samples, and noise\_scale on validation accuracy, MIA advantage, and adversarial accuracy. This systematic analysis informed our parameter optimization process and final defense configuration selection.}
 \label{fig:tuning-results}
 \end{figure}
 
@@ -469,50 +469,117 @@ We have successfully implemented and evaluated multiple additional attacks:
     \item \textbf{Shadow Model Attacks:} Implement shadow model-based MIA attacks for more sophisticated privacy evaluation.
 \end{itemize}
 
-\subsection{Part 2 Preparation}
+\subsection{Part 2: Dataset and Model Selection}
 
-For Part 2, we will:
+For Part 2, we conducted a systematic evaluation of datasets and model architectures to select an appropriate combination that meets the project requirements while allowing us to leverage our Part 1 work.
 
+\subsubsection{Dataset Selection Process}
+
+We evaluated several datasets against the project requirements:
 \begin{itemize}
-    \item Select an appropriate dataset (considering CIFAR-100, ImageNette, or EuroSAT) with complexity comparable to or greater than CIFAR-10.
-    \item Train a model from scratch, allowing us to incorporate training-time defenses such as adversarial training and differential privacy.
-    \item Apply and adapt the inference-time defenses developed in Part 1.
-    \item Conduct comprehensive evaluation with multiple attack scenarios and metrics.
+    \item \textbf{Complexity requirement:} Dataset must be at least as complex as CIFAR-10 (MNIST is too simple)
+    \item \textbf{Similarity to CIFAR-10:} Prefer image datasets not too different from CIFAR-10 to leverage Part 1 work
+    \item \textbf{Computational feasibility:} Must be trainable within available resources
 \end{itemize}
 
-\subsection{Timeline and Schedule}
+\textbf{Datasets Considered:}
 
-We are ahead of schedule according to the recommended timeline:
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Dataset} & \textbf{Complexity} & \textbf{Code Reuse} & \textbf{Training Time} \\
+\midrule
+CIFAR-100 & \checkmark & \checkmark\checkmark\checkmark & Fast \\
+ImageNette & \checkmark & \checkmark\checkmark & Medium \\
+EuroSAT & \checkmark & \checkmark\checkmark & Fast \\
+STL-10 & \checkmark & \checkmark\checkmark & Medium \\
+\bottomrule
+\end{tabular}
+\caption{Dataset Comparison for Part 2}
+\label{tab:dataset-comparison}
+\end{table}
 
-\begin{itemize}
-    \item \textbf{Week of 10/27 (Current):} Defense implementation completed; parameter optimization completed; mid-semester report in progress.
-    \item \textbf{Week of 11/3:} Additional attack implementation and evaluation; begin Part 2 dataset selection and model training.
-    \item \textbf{Week of 11/10:} Complete mid-semester report submission; continue Part 2 development.
-    \item \textbf{Week of 11/17:} Finalize Part 2 defense implementation and evaluation; begin final report.
-    \item \textbf{Week of 12/1:} Complete final experiments, report, and presentation.
-\end{itemize}
+\textbf{Selected Dataset: ImageNette}
 
-\subsection{Expected Outcomes}
-
-By the end of the semester, we expect to deliver:
+We selected \textbf{ImageNette} (a 10-class subset of ImageNet) for the following reasons:
 
 \begin{enumerate}
-    \item A robust defense system that significantly reduces both MIA advantage (current: 0.147, target: $< 0.15$ achieved) and adversarial vulnerability (current: 59.78\% average adversarial accuracy, target: $> 50\%$ achieved) while maintaining high test accuracy (current: 86.76\%, target: $> 85\%$ achieved).
-    \item Comprehensive evaluation against multiple attack methods (7 MIA attacks and 4 adversarial attacks implemented and evaluated), demonstrating defense effectiveness across diverse attack strategies.
-    \item A complete implementation for both Part 1 (pre-trained model defense with optimized parameters) and Part 2 (trained model with integrated defenses).
-    \item Detailed analysis and documentation of defense mechanisms, parameter optimization process, trade-offs, and limitations in the final report.
+    \item \textbf{Appropriate Complexity:} ImageNette contains 13,394 images across 10 classes with higher resolution (320×320) than CIFAR-10, providing a more challenging classification task while remaining computationally manageable.
+    
+    \item \textbf{Real-World Relevance:} As a subset of ImageNet, ImageNette represents real-world natural images, making it more representative of practical applications than synthetic datasets.
+    
+    \item \textbf{Training Efficiency:} The dataset size (9,469 training samples) allows for reasonable training times (~3-5 hours for 100 epochs on GPU) while still providing sufficient data for robust model training.
+    
+    \item \textbf{Defense Evaluation:} Higher resolution images (224×224 after preprocessing) provide a better testbed for evaluating defenses on more realistic inputs, while still allowing us to adapt our Part 1 defense techniques.
+    
+    \item \textbf{Well-Established Benchmark:} ImageNette is a standard benchmark in the fastai community, providing known baseline accuracies for comparison (typically 85-90\% for ResNet-18).
 \end{enumerate}
 
-\textbf{Current Status:} We have already achieved or exceeded most of our Part 1 goals:
+\subsubsection{Model Architecture Selection}
+
+We evaluated several model architectures for ImageNette:
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Architecture} & \textbf{Parameters} & \textbf{Expected Acc.} & \textbf{Training Time} \\
+\midrule
+ResNet-18 & 11.2M & 85-90\% & 3-5 hours \\
+ResNet-34 & 21.3M & 88-92\% & 6-10 hours \\
+EfficientNet-B0 & 5.3M & 85-88\% & 4-6 hours \\
+MobileNet-V2 & 3.4M & 80-85\% & 2-4 hours \\
+\bottomrule
+\end{tabular}
+\caption{Model Architecture Comparison}
+\label{tab:model-comparison}
+\end{table}
+
+\textbf{Selected Architecture: ResNet-18}
+
+We selected \textbf{ResNet-18} for the following reasons:
+
+\begin{enumerate}
+    \item \textbf{Proven Effectiveness:} ResNet-18 is a well-established architecture that achieves strong performance on ImageNette (typically 85-90\% accuracy), providing a solid baseline for defense evaluation.
+    
+    \item \textbf{Computational Efficiency:} With 11.2M parameters, ResNet-18 offers a good balance between model capacity and training time, allowing us to complete training and defense evaluation within the project timeline.
+    
+    \item \textbf{Standard Architecture:} ResNet-18 uses the standard ImageNet architecture (224×224 input), which is well-documented and allows for easy comparison with published results.
+    
+    \item \textbf{Defense Compatibility:} The architecture is compatible with our Part 1 defense techniques (temperature scaling, test-time augmentation, ensemble prediction) without requiring significant modifications.
+    
+    \item \textbf{Training-Time Defense Support:} ResNet-18 is well-suited for incorporating training-time defenses such as adversarial training and differential privacy, which we plan to explore in Part 2.
+\end{enumerate}
+
+\subsubsection{Initial Training Results}
+
+We conducted an initial training run to verify the setup and baseline performance. Training for just 3 epochs with batch size 64 and learning rate 0.1, we achieved:
+
 \begin{itemize}
-    \item \textbf{Privacy protection:} MIA advantage reduced to 0.147 (52\% reduction from baseline)
-    \item \textbf{Adversarial robustness:} Average adversarial accuracy of 59.78\% (10x improvement from 6\% baseline)
-    \item \textbf{Model accuracy:} Validation accuracy of 86.76\% (exceeds 85\% target)
-    \item \textbf{Comprehensive evaluation:} 7 MIA attacks and 4 adversarial attacks tested
-    \item \textbf{Parameter optimization:} Systematic tuning completed with optimal configuration identified
+    \item \textbf{Training Progress:} The model showed steady improvement, reaching 50.27\% validation accuracy after 3 epochs (from 24.69\% at epoch 1).
+    \item \textbf{Training Time:} ~19 seconds per epoch on GPU, confirming computational feasibility.
+    \item \textbf{Model Size:} 11,181,642 parameters, as expected for ResNet-18.
+    \item \textbf{Dataset Statistics:} 9,469 training samples, 3,925 validation/test samples, 10 classes.
 \end{itemize}
 
-We do not anticipate needing to reduce the project scope, as our current progress and results indicate that our approach is highly effective and we are ahead of schedule.
+These preliminary results confirm that our selected dataset and architecture combination is appropriate for Part 2. With full training (100 epochs), we expect to achieve 85-90\% test accuracy, providing a strong baseline for evaluating our defense techniques.
+
+\subsubsection{Next Steps for Part 2}
+
+With the dataset and architecture selected, our next steps are:
+
+\begin{enumerate}
+    \item \textbf{Complete Model Training:} Train ResNet-18 on ImageNette for 100 epochs to achieve baseline performance (~85-90\% accuracy).
+    
+    \item \textbf{Apply Part 1 Defenses:} Adapt our inference-time defense techniques (temperature scaling, test-time augmentation, ensemble prediction) to work with the ImageNette model and evaluate their effectiveness.
+    
+    \item \textbf{Explore Training-Time Defenses:} Since we are training from scratch, we can incorporate training-time defenses such as adversarial training and differential privacy, which were not possible in Part 1.
+    
+    \item \textbf{Comprehensive Evaluation:} Evaluate the combined defense approach against multiple MIA and adversarial attacks, similar to our Part 1 evaluation.
+\end{enumerate}
 
 
 %%%%

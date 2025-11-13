@@ -23,3 +23,5 @@ __pycache__/
 .env.test
 .env.production
 instructions.txt
+
+data/imagenette2-320/
